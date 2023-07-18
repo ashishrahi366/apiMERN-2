@@ -1,11 +1,12 @@
 const jwt = require("jsonwebtoken")
 
 const userAuth = async (req, res, next) => {
-    const AuthHeader = req.headers.authorization
-    if (!AuthHeader || !AuthHeader.startWith('Bearer')) {
+    const authHeader = req.headers.authorization
+    if (!authHeader || !authHeader.startWith('Bearer')) {
         next("Auth Failed")
     }
-    const token = AuthHeader.split(' ')[1]
+    const token = authHeader.split("")[1];
+    console.log("jiuxbiwq")
     try {
         const payload = await jwt.verify(token, process.env.SECRET_KEY)
         req.user = { userId: payload.userId }
@@ -15,5 +16,4 @@ const userAuth = async (req, res, next) => {
         next("Authentication failed")
     }
 }
-
 module.exports = userAuth;
